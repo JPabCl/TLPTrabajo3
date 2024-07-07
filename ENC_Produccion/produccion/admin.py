@@ -1,7 +1,7 @@
 from django.contrib import admin
-from .models import Planta, Producto, RegistroProduccion
 from django.utils import timezone
 from django.contrib.auth.models import Group
+from .models import Planta, Producto, RegistroProduccion
 from .forms import ProductoForm, PlantaForm
 
 class ProductoAdmin(admin.ModelAdmin):
@@ -17,26 +17,27 @@ class RegistroProduccionAdmin(admin.ModelAdmin):
     actions = ['anular_registros']
 
     def anular_registros(self, request, queryset):
-        # Verifica si el usuario pertenece al grupo "Supervisor"
+        # Verificar si el usuario actual pertenece al grupo 'Supervisor'
         if not request.user.groups.filter(name='Supervisor').exists():
             self.message_user(request, "No tienes permiso para anular registros.", level='error')
             return
 
         for registro in queryset:
-            registro.anulado = True
-            registro.fecha_anulacion = timezone.now()
-            registro.anulado_por = request.user
-            registro.save()
-        self.message_user(request, "Registros anulados con éxito")
+            registro.anular(request.user)
+        self.message_user(request, f"Se han anulado {queryset.count()} registros.")
 
-    anular_registros.short_description = "Anular registro seleccionado."
+    anular_registros.short_description = "Anular registro seleccionado"
 
-
-    def habilitar_anulado(self, request, obj=None):
+    def get_readonly_fields(self, request, obj=None):
         readonly_fields = super().get_readonly_fields(request, obj)
-        if not request.user.groups.filter(name='Supervisor').exists():
-            readonly_fields.append('anulado')
+        if obj and not request.user.groups.filter(name='Supervisor').exists():
+            readonly_fields += ('anulado', 'fecha_anulacion', 'anulado_por')
         return readonly_fields
+
+    def has_delete_permission(self, request, obj=None):
+        if request.user.groups.filter(name='Supervisor').exists():
+            return True
+        return False
 
 admin.site.register(Planta, PlantaAdmin)
 admin.site.register(Producto, ProductoAdmin)
