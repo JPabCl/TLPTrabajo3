@@ -44,3 +44,8 @@ class RegistroProduccion(models.Model):
 
     def __str__(self):
         return f"{self.producto.nombreProducto} - {self.litros_producidos} L - {self.fecha_produccion} - {self.turno} - {'Anulado' if self.anulado else 'Activo'}"
+
+    class Meta:
+        permissions = [
+            ("can_toggle_anulado", "Can toggle anulado field"),
+        ]

@@ -130,3 +130,5 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+SLACK_WEBHOOK_URL = 'https://hooks.slack.com/services/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'
