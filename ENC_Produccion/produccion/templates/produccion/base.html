@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Producción{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Sistema de Producción</h1>
+        <nav>
+            <ul>
+                <li><a href="{% url 'registro' %}">Registrar Producción</a></li>
+                <li><a href="{% url 'consulta' %}">Consultar Producción</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+    <footer>
+        <p>&copy; 2024 Empresa de Producción</p>
+    </footer>
+</body>
+</html>
