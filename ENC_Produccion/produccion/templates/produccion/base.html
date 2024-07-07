@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="{% static 'core/css/estilos.css' %}" />
+    <link rel="stylesheet" href="{% static 'core/css/bootstrap.css' %}" />
+
+    <meta charset="UTF-8">
+    <title>{% block title %}Producción{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Sistema de Producción</h1>
+        <nav>
+            <ul>
+                {% if user.is_authenticated %}
+                <li><a href="{% url 'registro' %}">Registrar Producción</a></li>
+                <li><a href="{% url 'consulta' %}">Consultar Producción</a></li>
+                <li><a href="{% url 'modificar' %}">Modificar Producción</a></li>
+                <li><a href="{% url 'logout' %}">Cerrar Sesión</a></li>
+                {% else %}
+                <li><a href="{% url 'login' %}">Iniciar Sesión</a></li>
+                <li><a href="{% url 'crear_usuario' %}">Crear Usuario</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+    <footer>
+        <p>&copy; 2024 Empresa de Producción</p>
+    </footer>
+</body>
+</html>
