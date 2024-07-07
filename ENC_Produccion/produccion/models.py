@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 class Producto(models.Model):
     codigo = models.CharField(max_length=3, unique=True)
     nombreProducto = models.CharField(max_length=100)
-    descripcion = models.TextField(blank=True, null=True)  # Hacer descripción opcional
+    
 
     def __str__(self):
         return self.nombreProducto
@@ -16,7 +16,7 @@ class Producto(models.Model):
 class Planta(models.Model):
     codigo = models.CharField(max_length=3, unique=True)
     nombrePlanta = models.CharField(max_length=100)
-    ubicacion = models.CharField(max_length=200, blank=True, null=True)  # Hacer ubicación opcional
+   
 
     def __str__(self):
         return self.nombrePlanta

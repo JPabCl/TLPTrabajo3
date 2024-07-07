@@ -1,0 +1,10 @@
+{% extends 'produccion/base.html' %}
+
+{% block content %}
+  <h2>Cerrar Sesión</h2>
+  <p>¿Estás seguro que deseas cerrar sesión?</p>
+  <form action="{% url 'logout' %}" method="post">
+    {% csrf_token %}
+    <button type="submit">Cerrar Sesión</button>
+  </form>
+{% endblock %}

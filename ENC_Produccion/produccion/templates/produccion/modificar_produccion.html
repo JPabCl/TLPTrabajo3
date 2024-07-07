@@ -1,0 +1,28 @@
+{% extends 'produccion/base.html' %}
+
+{% block content %}
+  <h2>Modificar Producción</h2>
+  
+  <form method="post">
+    {% csrf_token %}
+    <label for="registro">Selecciona el registro a modificar:</label>
+    <select id="registro" name="registro_id">
+      {% for registro in registros %}
+      <option value="{{ registro.id }}">{{ registro.producto.nombreProducto }} - {{ registro.fecha_produccion }} - {{ registro.get_turno_display }}</option>
+      {% endfor %}
+    </select>
+    <br>
+    <button type="submit">Seleccionar Registro</button>
+  </form>
+
+  {% if form %}
+    <hr>
+    <h3>Modificar Registro Seleccionado</h3>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Guardar Cambios</button>
+    </form>
+  {% endif %}
+  
+{% endblock %}
